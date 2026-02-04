@@ -126,35 +126,66 @@ def _nx_to_nk_graph(graph: nx.MultiDiGraph) -> tuple[nk.Graph, dict, dict]:
     return nk_graph, node_to_idx, idx_to_node
 
 
-def _dijkstra_sum_for_source(graph: nx.Graph, source, weight: str) -> float:
-    """Compute sum of weighted distances from source to all other nodes.
+def _nx_to_nk_weighted_graph(
+    graph: nx.Graph, weight: str
+) -> tuple[nk.Graph, dict, dict]:
+    """Convert NetworkX Graph to NetworKit weighted undirected Graph.
 
     Args:
-        graph: NetworkX Graph.
-        source: Source node.
+        graph: NetworkX Graph (undirected).
         weight: Edge weight attribute name.
+
+    Returns:
+        Tuple of (NetworKit weighted graph, node_to_idx mapping, idx_to_node mapping).
+    """
+    node_list = list(graph.nodes())
+    node_to_idx = {node: idx for idx, node in enumerate(node_list)}
+    idx_to_node = {idx: node for node, idx in node_to_idx.items()}
+
+    nk_graph = nk.Graph(len(node_list), directed=False, weighted=True)
+    for u, v, data in graph.edges(data=True):
+        u_idx, v_idx = node_to_idx[u], node_to_idx[v]
+        w = data.get(weight, 1.0)
+        if w is None or w <= 0:
+            w = 1.0
+        if not nk_graph.hasEdge(u_idx, v_idx):
+            nk_graph.addEdge(u_idx, v_idx, w)
+
+    return nk_graph, node_to_idx, idx_to_node
+
+
+def _dijkstra_sum_for_source_nk(nk_graph: nk.Graph, source: int) -> float:
+    """Compute sum of weighted distances from source to all other nodes using NetworKit.
+
+    Args:
+        nk_graph: NetworKit weighted Graph.
+        source: Source node index.
 
     Returns:
         Sum of distances from source to all reachable nodes.
     """
-    lengths = nx.single_source_dijkstra_path_length(graph, source, weight=weight)
-    return sum(lengths.values())
+    dijkstra = nk.distance.Dijkstra(nk_graph, source)
+    dijkstra.run()
+    distances = dijkstra.getDistances()
+    total = 0.0
+    for dist in distances:
+        if 0 < dist < 1e308:
+            total += dist
+    return total
 
 
-def _parallel_avg_shortest_path(graph: nx.Graph, weight: str) -> float:
-    """Calculate average shortest path length using parallel Dijkstra.
+def _parallel_avg_shortest_path_nk(nk_graph: nk.Graph) -> float:
+    """Calculate average shortest path length using parallel Dijkstra with NetworKit.
 
     Args:
-        graph: NetworkX Graph.
-        weight: Edge weight attribute name.
+        nk_graph: NetworKit weighted Graph.
 
     Returns:
         Average shortest path length.
     """
-    nodes = list(graph.nodes())
-    n = len(nodes)
-    results = Parallel(n_jobs=os.cpu_count())(
-        delayed(_dijkstra_sum_for_source)(graph, node, weight) for node in nodes
+    n = nk_graph.numberOfNodes()
+    results = Parallel(n_jobs=os.cpu_count(), prefer="threads")(
+        delayed(_dijkstra_sum_for_source_nk)(nk_graph, source) for source in range(n)
     )
     total = sum(results)
     return total / (n * (n - 1))
@@ -409,10 +440,17 @@ def calculate_global_parameters(
     max_l_manh = edge_data["l_manh"].max()
     max_length = edge_data["length"].max()
 
-    largest_cc = max(nx.weakly_connected_components(graph), key=len)
-    subgraph = graph.subgraph(largest_cc)
+    logging.info("Finding largest connected component using NetworKit...")
+    nk_graph_full, node_to_idx_full, idx_to_node_full = _nx_to_nk_graph(graph)
+    cc = nk.components.ConnectedComponents(nk_graph_full)
+    cc.run()
+    largest_cc_idx = max(range(nk_graph_full.numberOfNodes()), key=lambda i: cc.componentOfNode(i))
+    largest_cc_id = cc.componentOfNode(largest_cc_idx)
+    largest_cc_nodes = [idx_to_node_full[i] for i in range(nk_graph_full.numberOfNodes()) if cc.componentOfNode(i) == largest_cc_id]
+    subgraph = graph.subgraph(largest_cc_nodes)
+    logging.info(f"Largest connected component has {len(largest_cc_nodes)} nodes")
 
-    logging.info("Computing diameter and avg shortest path using NetworKit...")
+    logging.info("Computing diameter using NetworKit...")
     nk_subgraph, node_to_idx, _ = _nx_to_nk_graph(subgraph)
 
     try:
@@ -421,28 +459,17 @@ def calculate_global_parameters(
         )
         diam.run()
         diameter = int(diam.getDiameter()[0])
-        logging.info(
-            f"Diameter calculated on largest connected component with {len(subgraph.nodes())} nodes"
-        )
+        logging.info(f"Diameter calculated: {diameter}")
     except Exception as e:
-        logging.warning(f"NetworKit diameter failed: {e}, falling back to NetworkX")
-        try:
-            diameter = nx.diameter(subgraph.to_undirected())
-            logging.info(
-                f"Diameter calculated using NetworkX on {len(subgraph.nodes())} nodes"
-            )
-        except nx.NetworkXError:
-            diameter = None
-            logging.warning(
-                "Could not calculate diameter (graph may not be connected)"
-            )
+        diameter = None
+        logging.warning(f"Could not calculate diameter: {e}")
 
     try:
         logging.info("Computing average shortest path length (topological) using parallel BFS...")
         n = nk_subgraph.numberOfNodes()
         n_jobs = os.cpu_count()
         logging.info(f"Using {n_jobs} parallel workers for {n} BFS computations")
-        results = Parallel(n_jobs=n_jobs, verbose=10)(
+        results = Parallel(n_jobs=n_jobs, verbose=10, prefer="threads")(
             delayed(_bfs_distances_for_source)(nk_subgraph, source, n)
             for source in range(n)
         )
@@ -456,34 +483,31 @@ def calculate_global_parameters(
             f"Could not calculate average shortest path length (topological): {e}"
         )
 
-    undirected_subgraph = graph.to_undirected().subgraph(largest_cc)
+    undirected_subgraph = graph.to_undirected().subgraph(largest_cc_nodes)
     n_jobs = os.cpu_count()
 
     try:
-        logging.info(f"Computing avg shortest path (physical) with {n_jobs} workers...")
-        avg_shortest_path_length = _parallel_avg_shortest_path(
-            undirected_subgraph, weight="length"
-        )
+        logging.info(f"Computing avg shortest path (physical) with {n_jobs} workers using NetworKit...")
+        nk_weighted, _, _ = _nx_to_nk_weighted_graph(undirected_subgraph, weight="length")
+        avg_shortest_path_length = _parallel_avg_shortest_path_nk(nk_weighted)
         logging.info("Average shortest path length (physical) calculated")
     except Exception as e:
         avg_shortest_path_length = None
         logging.warning(f"Could not calculate average shortest path length (physical): {e}")
 
     try:
-        logging.info(f"Computing avg shortest path (Euclidean) with {n_jobs} workers...")
-        avg_shortest_path_eucl = _parallel_avg_shortest_path(
-            undirected_subgraph, weight="l_eucl"
-        )
+        logging.info(f"Computing avg shortest path (Euclidean) with {n_jobs} workers using NetworKit...")
+        nk_weighted, _, _ = _nx_to_nk_weighted_graph(undirected_subgraph, weight="l_eucl")
+        avg_shortest_path_eucl = _parallel_avg_shortest_path_nk(nk_weighted)
         logging.info("Average shortest path length (Euclidean) calculated")
     except Exception as e:
         avg_shortest_path_eucl = None
         logging.warning(f"Could not calculate average shortest path length (Euclidean): {e}")
 
     try:
-        logging.info(f"Computing avg shortest path (Manhattan) with {n_jobs} workers...")
-        avg_shortest_path_manh = _parallel_avg_shortest_path(
-            undirected_subgraph, weight="l_manh"
-        )
+        logging.info(f"Computing avg shortest path (Manhattan) with {n_jobs} workers using NetworKit...")
+        nk_weighted, _, _ = _nx_to_nk_weighted_graph(undirected_subgraph, weight="l_manh")
+        avg_shortest_path_manh = _parallel_avg_shortest_path_nk(nk_weighted)
         logging.info("Average shortest path length (Manhattan) calculated")
     except Exception as e:
         avg_shortest_path_manh = None
