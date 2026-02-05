@@ -191,7 +191,9 @@ def _parallel_avg_shortest_path_nk(nk_graph: nk.Graph) -> float:
     return total / (n * (n - 1))
 
 
-def _bfs_distances_for_source(nk_graph: nk.Graph, source: int, n: int) -> tuple[float, int]:
+def _bfs_distances_for_source(
+    nk_graph: nk.Graph, source: int, n: int
+) -> tuple[float, int]:
     """Compute sum of distances from source to all higher-indexed nodes.
 
     Args:
@@ -444,9 +446,15 @@ def calculate_global_parameters(
     nk_graph_full, node_to_idx_full, idx_to_node_full = _nx_to_nk_graph(graph)
     cc = nk.components.ConnectedComponents(nk_graph_full)
     cc.run()
-    largest_cc_idx = max(range(nk_graph_full.numberOfNodes()), key=lambda i: cc.componentOfNode(i))
+    largest_cc_idx = max(
+        range(nk_graph_full.numberOfNodes()), key=lambda i: cc.componentOfNode(i)
+    )
     largest_cc_id = cc.componentOfNode(largest_cc_idx)
-    largest_cc_nodes = [idx_to_node_full[i] for i in range(nk_graph_full.numberOfNodes()) if cc.componentOfNode(i) == largest_cc_id]
+    largest_cc_nodes = [
+        idx_to_node_full[i]
+        for i in range(nk_graph_full.numberOfNodes())
+        if cc.componentOfNode(i) == largest_cc_id
+    ]
     subgraph = graph.subgraph(largest_cc_nodes)
     logging.info(f"Largest connected component has {len(largest_cc_nodes)} nodes")
 
@@ -454,9 +462,7 @@ def calculate_global_parameters(
     nk_subgraph, node_to_idx, _ = _nx_to_nk_graph(subgraph)
 
     try:
-        diam = nk.distance.Diameter(
-            nk_subgraph, algo=nk.distance.DiameterAlgo.EXACT
-        )
+        diam = nk.distance.Diameter(nk_subgraph, algo=nk.distance.DiameterAlgo.EXACT)
         diam.run()
         diameter = int(diam.getDiameter()[0])
         logging.info(f"Diameter calculated: {diameter}")
@@ -465,7 +471,9 @@ def calculate_global_parameters(
         logging.warning(f"Could not calculate diameter: {e}")
 
     try:
-        logging.info("Computing average shortest path length (topological) using parallel BFS...")
+        logging.info(
+            "Computing average shortest path length (topological) using parallel BFS..."
+        )
         n = nk_subgraph.numberOfNodes()
         n_jobs = os.cpu_count()
         logging.info(f"Using {n_jobs} parallel workers for {n} BFS computations")
@@ -487,26 +495,42 @@ def calculate_global_parameters(
     n_jobs = os.cpu_count()
 
     try:
-        logging.info(f"Computing avg shortest path (physical) with {n_jobs} workers using NetworKit...")
-        nk_weighted, _, _ = _nx_to_nk_weighted_graph(undirected_subgraph, weight="length")
+        logging.info(
+            f"Computing avg shortest path (physical) with {n_jobs} workers using NetworKit..."
+        )
+        nk_weighted, _, _ = _nx_to_nk_weighted_graph(
+            undirected_subgraph, weight="length"
+        )
         avg_shortest_path_length = _parallel_avg_shortest_path_nk(nk_weighted)
         logging.info("Average shortest path length (physical) calculated")
     except Exception as e:
         avg_shortest_path_length = None
-        logging.warning(f"Could not calculate average shortest path length (physical): {e}")
+        logging.warning(
+            f"Could not calculate average shortest path length (physical): {e}"
+        )
 
     try:
-        logging.info(f"Computing avg shortest path (Euclidean) with {n_jobs} workers using NetworKit...")
-        nk_weighted, _, _ = _nx_to_nk_weighted_graph(undirected_subgraph, weight="l_eucl")
+        logging.info(
+            f"Computing avg shortest path (Euclidean) with {n_jobs} workers using NetworKit..."
+        )
+        nk_weighted, _, _ = _nx_to_nk_weighted_graph(
+            undirected_subgraph, weight="l_eucl"
+        )
         avg_shortest_path_eucl = _parallel_avg_shortest_path_nk(nk_weighted)
         logging.info("Average shortest path length (Euclidean) calculated")
     except Exception as e:
         avg_shortest_path_eucl = None
-        logging.warning(f"Could not calculate average shortest path length (Euclidean): {e}")
+        logging.warning(
+            f"Could not calculate average shortest path length (Euclidean): {e}"
+        )
 
     try:
-        logging.info(f"Computing avg shortest path (Manhattan) with {n_jobs} workers using NetworKit...")
-        nk_weighted, _, _ = _nx_to_nk_weighted_graph(undirected_subgraph, weight="l_manh")
+        logging.info(
+            f"Computing avg shortest path (Manhattan) with {n_jobs} workers using NetworKit..."
+        )
+        nk_weighted, _, _ = _nx_to_nk_weighted_graph(
+            undirected_subgraph, weight="l_manh"
+        )
         avg_shortest_path_manh = _parallel_avg_shortest_path_nk(nk_weighted)
         logging.info("Average shortest path length (Manhattan) calculated")
     except Exception as e:
@@ -520,7 +544,8 @@ def calculate_global_parameters(
 
     logging.info(
         f"Theoretical random graph G(N,p): p={p_random:.6f}, k*={k_star:.4f}, "
-        f"c*={c_star:.6f}, l*={l_star:.4f}" if l_star is not None
+        f"c*={c_star:.6f}, l*={l_star:.4f}"
+        if l_star is not None
         else f"Theoretical random graph G(N,p): p={p_random:.6f}, k*={k_star:.4f}, "
         f"c*={c_star:.6f}, l*=N/A"
     )
@@ -750,9 +775,9 @@ def main():
     node_params = calculate_node_parameters(graph)
     edge_params = calculate_edge_parameters(graph)
 
-    global_params = calculate_global_parameters(graph, node_params, edge_params)
-
     graph = add_parameters_to_graph(graph, node_params, edge_params)
+
+    global_params = calculate_global_parameters(graph, node_params, edge_params)
     nodes_gdf, edges_gdf = graph_to_spatial_objects(graph)
 
     output_dir = Path("data/test") if TEST_RUN else Path("data/output")
