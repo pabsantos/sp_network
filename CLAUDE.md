@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a geospatial network analysis project for the City of São Paulo. The project loads OD zones from the metropolitan region, filters zones within the municipality of São Paulo, downloads road network data from OpenStreetMap, and calculates network parameters.
+This is a geospatial network analysis project for the City of São Paulo. The project loads OD zones from the metropolitan region, filters zones within the municipality of São Paulo, downloads road network data from OpenStreetMap, calculates network parameters, and aggregates results by district.
 
 ## Development Setup
 
@@ -20,6 +20,11 @@ uv sync
 uv run python main.py
 ```
 
+**Run district aggregation (after main.py):**
+```bash
+uv run python aggregate_districts.py
+```
+
 ## Project Architecture
 
 ### Data Flow
@@ -33,6 +38,14 @@ The main pipeline in `main.py` follows this sequence:
 5. **Parameter calculation**: Computes node and edge parameters using NetworKit
 6. **Output generation**: Exports results as GeoPackage, GraphML, and text files
 
+The aggregation pipeline in `aggregate_districts.py` follows this sequence:
+
+1. **Load outputs**: Reads nodes.gpkg, edges.gpkg, and od_zones_sp.gpkg from `data/output/`
+2. **Spatial join**: Assigns nodes and edges to districts via spatial join with OD zones
+3. **Aggregation**: Computes mean, median, max of k_i, c_i, b_i (nodes) and e_ij (edges) per district
+4. **Dissolve**: Merges OD zone polygons into district polygons
+5. **Export**: Saves district_summary.gpkg with polygons and statistics
+
 ### Key Functions
 
 - `load_od_zones()`: Load OD zones shapefile into GeoDataFrame
@@ -42,6 +55,15 @@ The main pipeline in `main.py` follows this sequence:
 - `calculate_edge_parameters()`: Compute distance metrics and edge betweenness
 - `calculate_global_parameters()`: Compute network-wide statistics
 - `setup_logging()`: Configure logging with timestamp format
+
+**`aggregate_districts.py`:**
+
+- `load_data()`: Load nodes, edges, and OD zones GeoPackage files
+- `assign_nodes_to_districts()`: Spatial join nodes to OD zones for district assignment
+- `assign_edges_to_districts()`: Spatial join edges (via representative point) to OD zones
+- `aggregate_node_params()`: Groupby district, compute mean/median/max for k_i, c_i, b_i
+- `aggregate_edge_params()`: Groupby district, compute mean/median/max for e_ij
+- `build_district_geodataframe()`: Dissolve zones into district polygons and merge statistics
 
 ### Directory Structure
 
@@ -67,6 +89,7 @@ The main pipeline in `main.py` follows this sequence:
 - The project uses structured logging throughout with INFO level messages
 - Logs are saved to `log/` directory with timestamp-based filenames
 - Geometry operations include validation (`.make_valid()`) and buffering
+- When dissolving zones, `GeometryCollection` results must be filtered to extract only polygon parts (using `shapely.ops.unary_union`)
 - OSMnx downloads are cached automatically to avoid repeated API calls
 - Graph uses `network_type="drive"` for road networks
 

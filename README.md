@@ -14,6 +14,7 @@ Geospatial network analysis project for the City of São Paulo. This project loa
 - **Parallel processing** using joblib for CPU-intensive operations
 - Automatic logging to `log/` directory with timestamps
 - Export results in multiple formats (GeoPackage, GraphML, text)
+- **District-level aggregation**: Mean, median and max of network parameters per district
 
 ## Requirements
 
@@ -35,6 +36,16 @@ Run the script:
 ```bash
 uv run python main.py
 ```
+
+### District Aggregation
+
+After running `main.py`, aggregate network parameters by district:
+
+```bash
+uv run python aggregate_districts.py
+```
+
+This generates `data/output/district_summary.gpkg` with district polygons (dissolved from OD zones) and summary statistics (mean, median, max) for `k_i`, `c_i`, `b_i`, and `e_ij`.
 
 ## Configuration
 
@@ -70,6 +81,7 @@ The script generates the following outputs:
 - `nodes.gpkg` - Nodes with calculated parameters (GeoPackage)
 - `edges.gpkg` - Edges with calculated parameters (GeoPackage)
 - `results.txt` - Summary of global and average network parameters
+- `district_summary.gpkg` - District polygons with aggregated network parameters (mean, median, max)
 
 ## Network Parameters
 
