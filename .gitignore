@@ -12,3 +12,4 @@ wheels/
 data/test/*
 cache/*
 log/*
+data/output/*
