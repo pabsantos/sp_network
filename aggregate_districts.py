@@ -53,7 +53,9 @@ def assign_nodes_to_districts(
     """
     logging.info("Assigning nodes to districts via spatial join...")
     zones_proj = zones.to_crs(nodes.crs)
-    joined = gpd.sjoin(nodes, zones_proj[["NumDistrit", "NomeDistri", "geometry"]], predicate="within")
+    joined = gpd.sjoin(
+        nodes, zones_proj[["NumDistrit", "NomeDistri", "geometry"]], predicate="within"
+    )
     joined = joined.drop(columns=["index_right"])
     logging.info(f"Nodes assigned to districts: {len(joined)} (of {len(nodes)})")
     return joined
@@ -71,13 +73,19 @@ def assign_edges_to_districts(
     Returns:
         GeoDataFrame of edges with district assignment.
     """
-    logging.info("Assigning edges to districts via spatial join (representative point)...")
+    logging.info(
+        "Assigning edges to districts via spatial join (representative point)..."
+    )
     zones_proj = zones.to_crs(edges.crs)
 
     edge_points = edges.copy()
     edge_points["geometry"] = edge_points.geometry.representative_point()
 
-    joined = gpd.sjoin(edge_points, zones_proj[["NumDistrit", "NomeDistri", "geometry"]], predicate="within")
+    joined = gpd.sjoin(
+        edge_points,
+        zones_proj[["NumDistrit", "NomeDistri", "geometry"]],
+        predicate="within",
+    )
     joined = joined.drop(columns=["index_right"])
     logging.info(f"Edges assigned to districts: {len(joined)} (of {len(edges)})")
     return joined
@@ -148,13 +156,19 @@ def build_district_geodataframe(
         ["NumDistrit", "NomeDistri", "geometry"]
     ]
     districts["geometry"] = districts.geometry.apply(
-        lambda geom: shapely.ops.unary_union(
-            [g for g in geom.geoms if g.geom_type in ("Polygon", "MultiPolygon")]
-        ) if geom.geom_type == "GeometryCollection" else geom
+        lambda geom: (
+            shapely.ops.unary_union(
+                [g for g in geom.geoms if g.geom_type in ("Polygon", "MultiPolygon")]
+            )
+            if geom.geom_type == "GeometryCollection"
+            else geom
+        )
     )
     logging.info(f"Districts created: {len(districts)}")
 
-    districts = districts.merge(node_stats.drop(columns=["NomeDistri"]), on="NumDistrit", how="left")
+    districts = districts.merge(
+        node_stats.drop(columns=["NomeDistri"]), on="NumDistrit", how="left"
+    )
     districts = districts.merge(edge_stats, on="NumDistrit", how="left")
 
     return districts
@@ -179,7 +193,11 @@ def main():
     district_gdf.to_file(output_path, driver="GPKG")
     logging.info(f"District summary saved to {output_path}")
 
-    stat_cols = [c for c in district_gdf.columns if c not in ("geometry", "NumDistrit", "NomeDistri")]
+    stat_cols = [
+        c
+        for c in district_gdf.columns
+        if c not in ("geometry", "NumDistrit", "NomeDistri")
+    ]
     logging.info(f"\nDistrict summary ({len(district_gdf)} districts):")
     logging.info(f"\n{district_gdf[['NomeDistri'] + stat_cols].to_string()}")
 
