@@ -14,7 +14,8 @@ Geospatial network analysis project for the City of São Paulo. This project loa
 - **Parallel processing** using joblib for CPU-intensive operations
 - Automatic logging to `log/` directory with timestamps
 - Export results in multiple formats (GeoPackage, GraphML, text)
-- **District-level aggregation**: Mean, median and max of network parameters per district
+- **Multi-level aggregation**: Mean, median and max of network parameters per OD zone, district, and subprefeitura
+- **Interactive visualization**: Jupyter notebook with choropleths and summary tables
 
 ## Requirements
 
@@ -37,15 +38,24 @@ Run the script:
 uv run python main.py
 ```
 
-### District Aggregation
+### Aggregation
 
-After running `main.py`, aggregate network parameters by district:
+After running `main.py`, aggregate network parameters by OD zone, district, and subprefeitura:
 
 ```bash
 uv run python aggregate_districts.py
 ```
 
-This generates `data/output/district_summary.gpkg` with district polygons (dissolved from OD zones) and summary statistics (mean, median, max) for `k_i`, `c_i`, `b_i`, and `e_ij`.
+This generates three summary files in `data/output/`:
+- `zone_summary.gpkg` - OD zones with aggregated network statistics
+- `district_summary.gpkg` - District polygons (dissolved from OD zones) with summary statistics
+- `subprefeitura_summary.gpkg` - Subprefeitura polygons with summary statistics
+
+Each file contains mean, median, and max values for `k_i`, `c_i`, `b_i`, and `e_ij`.
+
+### Results Notebook
+
+The `index.ipynb` notebook visualizes the results with choropleths and summary tables. A static HTML export (`index.html`) is also available.
 
 ## Configuration
 
@@ -81,7 +91,9 @@ The script generates the following outputs:
 - `nodes.gpkg` - Nodes with calculated parameters (GeoPackage)
 - `edges.gpkg` - Edges with calculated parameters (GeoPackage)
 - `results.txt` - Summary of global and average network parameters
-- `district_summary.gpkg` - District polygons with aggregated network parameters (mean, median, max)
+- `zone_summary.gpkg` - OD zones with aggregated network parameters
+- `district_summary.gpkg` - District polygons with aggregated network parameters
+- `subprefeitura_summary.gpkg` - Subprefeitura polygons with aggregated network parameters
 
 ## Network Parameters
 

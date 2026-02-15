@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a geospatial network analysis project for the City of São Paulo. The project loads OD zones from the metropolitan region, filters zones within the municipality of São Paulo, downloads road network data from OpenStreetMap, calculates network parameters, and aggregates results by district.
+This is a geospatial network analysis project for the City of São Paulo. The project loads OD zones from the metropolitan region, filters zones within the municipality of São Paulo, downloads road network data from OpenStreetMap, calculates network parameters, and aggregates results by OD zone, district, and subprefeitura.
 
 ## Development Setup
 
@@ -20,7 +20,7 @@ uv sync
 uv run python main.py
 ```
 
-**Run district aggregation (after main.py):**
+**Run aggregation (after main.py):**
 ```bash
 uv run python aggregate_districts.py
 ```
@@ -41,10 +41,13 @@ The main pipeline in `main.py` follows this sequence:
 The aggregation pipeline in `aggregate_districts.py` follows this sequence:
 
 1. **Load outputs**: Reads nodes.gpkg, edges.gpkg, and od_zones_sp.gpkg from `data/output/`
-2. **Spatial join**: Assigns nodes and edges to districts via spatial join with OD zones
-3. **Aggregation**: Computes mean, median, max of k_i, c_i, b_i (nodes) and e_ij (edges) per district
-4. **Dissolve**: Merges OD zone polygons into district polygons
-5. **Export**: Saves district_summary.gpkg with polygons and statistics
+2. **Spatial join**: Assigns nodes and edges to OD zones via spatial join
+3. **Zone aggregation**: Computes mean/median/max of k_i, c_i, b_i (nodes) and e_ij (edges) per OD zone
+4. **District aggregation**: Groups zones by district, dissolves polygons, computes summary statistics
+5. **Subprefeitura aggregation**: Maps districts to subprefeituras (hardcoded mapping), dissolves polygons, computes summary statistics
+6. **Export**: Saves zone_summary.gpkg, district_summary.gpkg, and subprefeitura_summary.gpkg
+
+The results notebook `index.ipynb` visualizes outputs with choropleths and summary tables. A static HTML export (`index.html`) is also generated.
 
 ### Key Functions
 
@@ -59,11 +62,13 @@ The aggregation pipeline in `aggregate_districts.py` follows this sequence:
 **`aggregate_districts.py`:**
 
 - `load_data()`: Load nodes, edges, and OD zones GeoPackage files
-- `assign_nodes_to_districts()`: Spatial join nodes to OD zones for district assignment
-- `assign_edges_to_districts()`: Spatial join edges (via representative point) to OD zones
-- `aggregate_node_params()`: Groupby district, compute mean/median/max for k_i, c_i, b_i
-- `aggregate_edge_params()`: Groupby district, compute mean/median/max for e_ij
+- `assign_nodes_to_zones()`: Spatial join nodes to OD zones
+- `assign_edges_to_zones()`: Spatial join edges (via representative point) to OD zones
+- `aggregate_node_params()`: Groupby column, compute mean/median/max for k_i, c_i, b_i
+- `aggregate_edge_params()`: Groupby column, compute mean/median/max for e_ij
+- `build_zone_geodataframe()`: Create zone-level summary with aggregated statistics
 - `build_district_geodataframe()`: Dissolve zones into district polygons and merge statistics
+- `build_subprefeitura_geodataframe()`: Dissolve districts into subprefeitura polygons and merge statistics
 
 ### Directory Structure
 
@@ -72,6 +77,8 @@ The aggregation pipeline in `aggregate_districts.py` follows this sequence:
 - `data/test/`: Output directory for test runs (when `TEST_RUN = True`)
 - `cache/`: OSMnx automatically caches downloaded network data here
 - `log/`: Timestamped log files
+- `index.ipynb`: Results visualization notebook (choropleths and summary tables)
+- `index.html`: Static HTML export of the notebook
 
 ### Key Dependencies
 
@@ -81,8 +88,11 @@ The aggregation pipeline in `aggregate_districts.py` follows this sequence:
 - **networkit**: High-performance graph algorithms (C++ backend)
 - **joblib**: Parallel processing for CPU-intensive computations
 - **pandas**: Tabular data operations
-- **pyproj**: Geodesic distance calculations (WGS84 ellipsoid)
 - **numpy**: Numerical operations
+- **matplotlib**: Plotting and visualization
+- **contextily**: Basemap tiles for choropleth maps
+- **nbclient/nbconvert**: Notebook execution and HTML export
+- **pyproj**: Geodesic distance calculations (WGS84 ellipsoid, transitive dependency)
 
 ## Known Patterns
 
@@ -92,6 +102,8 @@ The aggregation pipeline in `aggregate_districts.py` follows this sequence:
 - When dissolving zones, `GeometryCollection` results must be filtered to extract only polygon parts (using `shapely.ops.unary_union`)
 - OSMnx downloads are cached automatically to avoid repeated API calls
 - Graph uses `network_type="drive"` for road networks
+- `aggregate_districts.py` contains a hardcoded `DISTRICT_TO_SUBPREFEITURA` mapping (105 entries) for all São Paulo districts
+- The results notebook uses dark-themed choropleths with CartoDB DarkMatter basemap via contextily
 
 ## Performance Optimization
 
