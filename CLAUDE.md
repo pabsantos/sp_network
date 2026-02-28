@@ -25,6 +25,11 @@ uv run python main.py
 uv run python aggregate_districts.py
 ```
 
+**Run population aggregation (after aggregate_districts.py):**
+```bash
+uv run python aggregate_population.py
+```
+
 ## Project Architecture
 
 ### Data Flow
@@ -47,7 +52,16 @@ The aggregation pipeline in `aggregate_districts.py` follows this sequence:
 5. **Subprefeitura aggregation**: Maps districts to subprefeituras (hardcoded mapping), dissolves polygons, computes summary statistics
 6. **Export**: Saves zone_summary.gpkg, district_summary.gpkg, and subprefeitura_summary.gpkg
 
-The results notebook `index.ipynb` visualizes outputs with choropleths and summary tables. A static HTML export (`index.html`) is also generated.
+The population pipeline in `aggregate_population.py` follows this sequence:
+
+1. **Load census data**: Reads IBGE 2022 Census GeoPackage (`data/raw/censo/SP_setores_CD2022.gpkg`)
+2. **Municipality filtering**: Filters census tracts for São Paulo (CD_MUN == "3550308")
+3. **Centroid creation**: Projects to EPSG:31983, computes centroids, reprojects back
+4. **Spatial join**: Assigns centroids to OD zones and subprefeituras via point-in-polygon
+5. **Population aggregation**: Sums `v0001` (total population) per zone and subprefeitura
+6. **Export**: Adds `populacao` column to zone_summary.gpkg and subprefeitura_summary.gpkg; exports populacao_zona.csv and populacao_subprefeitura.csv
+
+The results notebook `index.ipynb` visualizes outputs with choropleths and summary tables, including population maps. A static HTML export (`index.html`) is also generated.
 
 ### Key Functions
 
@@ -70,9 +84,18 @@ The results notebook `index.ipynb` visualizes outputs with choropleths and summa
 - `build_district_geodataframe()`: Dissolve zones into district polygons and merge statistics
 - `build_subprefeitura_geodataframe()`: Dissolve districts into subprefeitura polygons and merge statistics
 
+**`aggregate_population.py`:**
+
+- `load_census_data()`: Load IBGE census GeoPackage file
+- `filter_census_by_municipality()`: Filter census tracts by CD_MUN (São Paulo = "3550308")
+- `create_centroids()`: Project to EPSG:31983, compute centroids, reproject back
+- `assign_centroids_to_areas()`: Spatial join centroids to area polygons (zones or subprefeituras)
+- `aggregate_population()`: Groupby column, sum v0001 as populacao
+
 ### Directory Structure
 
 - `data/raw/od_zones/`: Origin-destination zone shapefiles (527 zones, 39 municipalities)
+- `data/raw/censo/`: IBGE 2022 Census tracts GeoPackage (SP_setores_CD2022.gpkg)
 - `data/output/`: Output directory for full production runs
 - `data/test/`: Output directory for test runs (when `TEST_RUN = True`)
 - `cache/`: OSMnx automatically caches downloaded network data here

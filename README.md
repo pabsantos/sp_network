@@ -53,6 +53,22 @@ This generates three summary files in `data/output/`:
 
 Each file contains mean, median, and max values for `k_i`, `c_i`, `b_i`, and `e_ij`.
 
+### Population Aggregation
+
+After running `aggregate_districts.py`, aggregate census population data by OD zone and subprefeitura:
+
+```bash
+uv run python aggregate_population.py
+```
+
+This downloads IBGE 2022 Census data (setores censitários), filters for São Paulo municipality, creates centroids, and assigns them to OD zones and subprefeituras via spatial join. Population totals are added as a `populacao` column to:
+- `zone_summary.gpkg`
+- `subprefeitura_summary.gpkg`
+
+CSV exports are also generated:
+- `populacao_zona.csv`
+- `populacao_subprefeitura.csv`
+
 ### Results Notebook
 
 The `index.ipynb` notebook visualizes the results with choropleths and summary tables. A static HTML export (`index.html`) is also available.
@@ -76,6 +92,7 @@ When `TEST_RUN = False`, results are saved to `data/output/`
 
 Place your input files in:
 - `data/raw/od_zones/Zonas_2023.shp` - Origin-destination zones shapefile
+- `data/raw/censo/SP_setores_CD2022.gpkg` - IBGE 2022 Census tracts (downloaded by `aggregate_population.py`)
 
 The shapefile should contain:
 - `NumeroMuni`: Municipality ID (36 = São Paulo)
@@ -91,9 +108,11 @@ The script generates the following outputs:
 - `nodes.gpkg` - Nodes with calculated parameters (GeoPackage)
 - `edges.gpkg` - Edges with calculated parameters (GeoPackage)
 - `results.txt` - Summary of global and average network parameters
-- `zone_summary.gpkg` - OD zones with aggregated network parameters
+- `zone_summary.gpkg` - OD zones with aggregated network parameters and population
 - `district_summary.gpkg` - District polygons with aggregated network parameters
-- `subprefeitura_summary.gpkg` - Subprefeitura polygons with aggregated network parameters
+- `subprefeitura_summary.gpkg` - Subprefeitura polygons with aggregated network parameters and population
+- `populacao_zona.csv` - Population totals per OD zone
+- `populacao_subprefeitura.csv` - Population totals per subprefeitura
 
 ## Network Parameters
 
