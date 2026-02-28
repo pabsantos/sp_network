@@ -232,17 +232,10 @@ def _bfs_avg_distance_for_node(nk_graph: nk.Graph, source: int, n: int) -> float
     """
     bfs = nk.distance.BFS(nk_graph, source)
     bfs.run()
-    distances = bfs.getDistances()
-    total = 0.0
-    count = 0
-    for target in range(n):
-        if target == source:
-            continue
-        dist = distances[target]
-        if 0 < dist < 1e308:
-            total += dist
-            count += 1
-    return total / count if count > 0 else 0.0
+    distances = np.array(bfs.getDistances())
+    distances[source] = np.inf
+    mask = (distances > 0) & (distances < 1e308)
+    return float(distances[mask].mean()) if mask.any() else 0.0
 
 
 def _compute_avg_shortest_path_per_node(graph: nx.MultiDiGraph) -> dict:
@@ -819,7 +812,7 @@ def main():
     """Execute the main pipeline: load OD zones, download network, and compute parameters."""
     setup_logging()
 
-    TEST_RUN = False
+    TEST_RUN = True
     TEST_DISTRICTS = [80, 67]
     SP_MUNICIPALITY_ID = 36
 
