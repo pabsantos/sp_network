@@ -12,10 +12,12 @@ import pandas as pd
 import pyproj
 from joblib import Parallel, delayed
 
+PROJECT_ROOT = Path(__file__).parent.parent
+
 
 def setup_logging():
     """Configure logging with INFO level, console output, and file output."""
-    log_dir = Path("log")
+    log_dir = PROJECT_ROOT / "log"
     log_dir.mkdir(exist_ok=True)
 
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -760,7 +762,7 @@ def main():
     TEST_DISTRICTS = [80, 67]
     SP_MUNICIPALITY_ID = 36
 
-    PATH_OD_ZONES = "data/raw/od_zones/Zonas_2023.shp"
+    PATH_OD_ZONES = PROJECT_ROOT / "data/raw/od_zones/Zonas_2023.shp"
 
     od_zones = load_od_zones(PATH_OD_ZONES)
     od_zones_sp = filter_zones_by_municipality(od_zones, SP_MUNICIPALITY_ID)
@@ -780,7 +782,7 @@ def main():
     global_params = calculate_global_parameters(graph, node_params, edge_params)
     nodes_gdf, edges_gdf = graph_to_spatial_objects(graph)
 
-    output_dir = Path("data/test") if TEST_RUN else Path("data/output")
+    output_dir = PROJECT_ROOT / "data/test" if TEST_RUN else PROJECT_ROOT / "data/output"
     output_dir.mkdir(parents=True, exist_ok=True)
     logging.info(f"Saving results to {output_dir}/")
 

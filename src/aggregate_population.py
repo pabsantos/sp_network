@@ -4,6 +4,8 @@ from pathlib import Path
 import geopandas as gpd
 import pandas as pd
 
+PROJECT_ROOT = Path(__file__).parent.parent
+
 SP_MUNICIPALITY_CODE = "3550308"
 
 
@@ -121,8 +123,8 @@ def main():
     """Aggregate census population by OD zone and subprefeitura."""
     setup_logging()
 
-    census_path = Path("data/raw/censo/SP_setores_CD2022.gpkg")
-    output_dir = Path("data/output")
+    census_path = PROJECT_ROOT / "data/raw/censo/SP_setores_CD2022.gpkg"
+    output_dir = PROJECT_ROOT / "data/output"
 
     census = load_census_data(census_path)
     census_sp = filter_census_by_municipality(census)
