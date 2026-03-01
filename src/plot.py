@@ -102,6 +102,7 @@ def plot_edge_map(
     figsize: tuple = (12, 10),
     linewidth: float = 0.15,
     log_scale: bool = False,
+    cmap: str = "plasma",
 ):
     """Create a line map of edges colored by a parameter.
 
@@ -113,6 +114,7 @@ def plot_edge_map(
         figsize: Figure size in inches.
         linewidth: Width of edge lines.
         log_scale: Use logarithmic color normalization.
+        cmap: Matplotlib colormap name.
     """
     fig, ax = plt.subplots(1, 1, figsize=figsize)
 
@@ -125,7 +127,7 @@ def plot_edge_map(
     gdf.plot(
         column=column,
         ax=ax,
-        cmap="plasma",
+        cmap=cmap,
         linewidth=linewidth,
         alpha=0.6,
         legend=True,
@@ -232,7 +234,7 @@ def main():
 
     edges = load_edges()
     plot_edge_map(
-        edges, "e_ij", r"$e_{ij}$", PLOT_DIR / "edges_e_ij.png", log_scale=True
+        edges, "e_ij", r"$e_{ij}$", PLOT_DIR / "edges_e_ij.png", log_scale=True, cmap="viridis"
     )
 
     plot_degree_distribution(nodes, PLOT_DIR / "degree_distribution.png")
