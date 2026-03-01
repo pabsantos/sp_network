@@ -250,7 +250,7 @@ def _compute_avg_shortest_path_per_node(graph: nx.MultiDiGraph) -> dict:
     node_list = list(graph.nodes())
     node_to_idx = {node: idx for idx, node in enumerate(node_list)}
 
-    nk_graph = nk.Graph(len(node_list), directed=False)
+    nk_graph = nk.Graph(len(node_list), directed=True)
     for u, v in graph.edges():
         u_idx, v_idx = node_to_idx[u], node_to_idx[v]
         if not nk_graph.hasEdge(u_idx, v_idx):
