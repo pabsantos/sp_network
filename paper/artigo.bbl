@@ -19,6 +19,71 @@
 
 \refsection{0}
   \datalist[entry]{nty/global//global/global/global}
+    \entry{Angriman2022}{incollection}{}{}
+      \name{author}{5}{}{%
+        {{hash=4df9ee951f9164550a0978a79d60ccee}{%
+           family={Angriman},
+           familyi={A\bibinitperiod},
+           given={Eugenio},
+           giveni={E\bibinitperiod}}}%
+        {{hash=2eab7df51223aeffead87bdd34b3412f}{%
+           family={Grinten},
+           familyi={G\bibinitperiod},
+           given={Alexander},
+           giveni={A\bibinitperiod},
+           prefix={van\bibnamedelima der},
+           prefixi={v\bibinitperiod\bibinitdelim d\bibinitperiod}}}%
+        {{hash=8c885eb84eebd45fc90789b2eb6e5112}{%
+           family={Hamann},
+           familyi={H\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+        {{hash=4a374125915b3960914c8d26d052ff0b}{%
+           family={Meyerhenke},
+           familyi={M\bibinitperiod},
+           given={Henning},
+           giveni={H\bibinitperiod}}}%
+        {{hash=37e67fcac925b195fb847830f8c803c7}{%
+           family={Penschuck},
+           familyi={P\bibinitperiod},
+           given={Manuel},
+           giveni={M\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Cham}%
+      }
+      \list{publisher}{1}{%
+        {Springer Nature Switzerland}%
+      }
+      \strng{namehash}{5ba855412291317754afdacb945b6d66}
+      \strng{fullhash}{5ba855412291317754afdacb945b6d66}
+      \strng{fullhashraw}{5ba855412291317754afdacb945b6d66}
+      \strng{bibnamehash}{5ba855412291317754afdacb945b6d66}
+      \strng{authorbibnamehash}{5ba855412291317754afdacb945b6d66}
+      \strng{authornamehash}{5ba855412291317754afdacb945b6d66}
+      \strng{authorfullhash}{5ba855412291317754afdacb945b6d66}
+      \strng{authorfullhashraw}{5ba855412291317754afdacb945b6d66}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Algorithms for Big Data}
+      \field{isbn}{978-3-031-21534-6}
+      \field{series}{Lecture Notes in Computer Science}
+      \field{title}{Algorithms for Large-Scale Network Analysis and the {NetworKit} Toolkit}
+      \field{year}{2022}
+      \field{pages}{3\bibrangedash 20}
+      \range{pages}{18}
+      \verb{doi}
+      \verb 10.1007/978-3-031-21534-6_1
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/978-3-031-21534-6_1
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/978-3-031-21534-6_1
+      \endverb
+    \endentry
     \entry{balijepalliMeasuringVulnerabilityRoad2014}{article}{}{}
       \name{author}{2}{}{%
         {{hash=7e99f1eba5c909b6d6e38c6352603622}{%
@@ -108,6 +173,52 @@
       \field{year}{2016}
       \field{dateera}{ce}
       \keyw{Computer networks,Information networks}
+    \endentry
+    \entry{boeingModelingAnalyzingUrban2025}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=6a97e7860ba89ae913db592b29249440}{%
+           family={Boeing},
+           familyi={B\bibinitperiod},
+           given={Geoff},
+           giveni={G\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {arXiv}%
+      }
+      \strng{namehash}{6a97e7860ba89ae913db592b29249440}
+      \strng{fullhash}{6a97e7860ba89ae913db592b29249440}
+      \strng{fullhashraw}{6a97e7860ba89ae913db592b29249440}
+      \strng{bibnamehash}{6a97e7860ba89ae913db592b29249440}
+      \strng{authorbibnamehash}{6a97e7860ba89ae913db592b29249440}
+      \strng{authornamehash}{6a97e7860ba89ae913db592b29249440}
+      \strng{authorfullhash}{6a97e7860ba89ae913db592b29249440}
+      \strng{authorfullhashraw}{6a97e7860ba89ae913db592b29249440}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{OSMnx is a Python package for downloading, modeling, analyzing, and visualizing urban networks and any other geospatial features from OpenStreetMap data. A large and growing body of literature uses it to conduct scientific studies across the disciplines of geography, urban planning, transport engineering, computer science, and others. The OSMnx project has recently developed and implemented many new features, modeling capabilities, and analytical methods. The package now encompasses substantially more functionality than was previously documented in the literature. This article introduces OSMnx's modern capabilities, usage, and design -- in addition to the scientific theory and logic underlying them. It shares lessons learned in geospatial software development and reflects on open science's implications for urban modeling and analysis.}
+      \field{title}{Modeling and {{Analyzing Urban Networks}} and {{Amenities}} with {{OSMnx}}}
+      \field{urlday}{12}
+      \field{urlmonth}{5}
+      \field{urlyear}{2025}
+      \field{version}{1}
+      \field{year}{2025}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.48550/ARXIV.2505.00736
+      \endverb
+      \verb{file}
+      \verb /Users/pabsantos/Zotero/storage/3UYZWSMC/Boeing - 2025 - Modeling and Analyzing Urban Networks and Amenitie.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2505.00736
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2505.00736
+      \endverb
+      \keyw{Adaptation and Self-Organizing Systems (nlin.AO),Applied Physics (physics.app-ph),Computation (stat.CO),FOS: Computer and information sciences,FOS: Electrical engineering electronic engineering information engineering,FOS: Physical sciences,Mathematical Software (cs.MS),Physics and Society (physics.soc-ph),Systems and Control (eess.SY)}
     \endentry
     \entry{costaCharacterizationComplexNetworks2007}{article}{}{}
       \name{author}{4}{}{%
@@ -224,6 +335,38 @@
       \verb{url}
       \verb https://linkinghub.elsevier.com/retrieve/pii/S1361920921000742
       \endverb
+    \endentry
+    \entry{Newman2010}{book}{}{}
+      \name{author}{1}{}{%
+        {{hash=214f45e2823b5430ca6f11c0fb3b6552}{%
+           family={Newman},
+           familyi={N\bibinitperiod},
+           given={Mark\bibnamedelimb E.\bibnamedelimi J.},
+           giveni={M\bibinitperiod\bibinitdelim E\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Oxford; New York}%
+      }
+      \list{publisher}{1}{%
+        {Oxford University Press}%
+      }
+      \strng{namehash}{214f45e2823b5430ca6f11c0fb3b6552}
+      \strng{fullhash}{214f45e2823b5430ca6f11c0fb3b6552}
+      \strng{fullhashraw}{214f45e2823b5430ca6f11c0fb3b6552}
+      \strng{bibnamehash}{214f45e2823b5430ca6f11c0fb3b6552}
+      \strng{authorbibnamehash}{214f45e2823b5430ca6f11c0fb3b6552}
+      \strng{authornamehash}{214f45e2823b5430ca6f11c0fb3b6552}
+      \strng{authorfullhash}{214f45e2823b5430ca6f11c0fb3b6552}
+      \strng{authorfullhashraw}{214f45e2823b5430ca6f11c0fb3b6552}
+      \field{sortinit}{N}
+      \field{sortinithash}{22369a73d5f88983a108b63f07f37084}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{978-0-19-920665-0}
+      \field{title}{Networks: An Introduction}
+      \field{year}{2010}
+      \field{pages}{720}
+      \range{pages}{1}
     \endentry
     \entry{santosVulnerabilityAnalysisComplex2023}{article}{}{}
       \name{author}{10}{}{%
