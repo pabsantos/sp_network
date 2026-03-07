@@ -1,0 +1,468 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nty/global//global/global/global}
+    \entry{Angriman2022}{incollection}{}{}
+      \name{author}{5}{}{%
+        {{hash=4df9ee951f9164550a0978a79d60ccee}{%
+           family={Angriman},
+           familyi={A\bibinitperiod},
+           given={Eugenio},
+           giveni={E\bibinitperiod}}}%
+        {{hash=2eab7df51223aeffead87bdd34b3412f}{%
+           family={Grinten},
+           familyi={G\bibinitperiod},
+           given={Alexander},
+           giveni={A\bibinitperiod},
+           prefix={van\bibnamedelima der},
+           prefixi={v\bibinitperiod\bibinitdelim d\bibinitperiod}}}%
+        {{hash=8c885eb84eebd45fc90789b2eb6e5112}{%
+           family={Hamann},
+           familyi={H\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+        {{hash=4a374125915b3960914c8d26d052ff0b}{%
+           family={Meyerhenke},
+           familyi={M\bibinitperiod},
+           given={Henning},
+           giveni={H\bibinitperiod}}}%
+        {{hash=37e67fcac925b195fb847830f8c803c7}{%
+           family={Penschuck},
+           familyi={P\bibinitperiod},
+           given={Manuel},
+           giveni={M\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Cham}%
+      }
+      \list{publisher}{1}{%
+        {Springer Nature Switzerland}%
+      }
+      \strng{namehash}{5ba855412291317754afdacb945b6d66}
+      \strng{fullhash}{5ba855412291317754afdacb945b6d66}
+      \strng{fullhashraw}{5ba855412291317754afdacb945b6d66}
+      \strng{bibnamehash}{5ba855412291317754afdacb945b6d66}
+      \strng{authorbibnamehash}{5ba855412291317754afdacb945b6d66}
+      \strng{authornamehash}{5ba855412291317754afdacb945b6d66}
+      \strng{authorfullhash}{5ba855412291317754afdacb945b6d66}
+      \strng{authorfullhashraw}{5ba855412291317754afdacb945b6d66}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Algorithms for Big Data}
+      \field{isbn}{978-3-031-21534-6}
+      \field{series}{Lecture Notes in Computer Science}
+      \field{title}{Algorithms for Large-Scale Network Analysis and the {NetworKit} Toolkit}
+      \field{year}{2022}
+      \field{pages}{3\bibrangedash 20}
+      \range{pages}{18}
+      \verb{doi}
+      \verb 10.1007/978-3-031-21534-6_1
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/978-3-031-21534-6_1
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/978-3-031-21534-6_1
+      \endverb
+    \endentry
+    \entry{balijepalliMeasuringVulnerabilityRoad2014}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=7e99f1eba5c909b6d6e38c6352603622}{%
+           family={Balijepalli},
+           familyi={B\bibinitperiod},
+           given={Chandra},
+           giveni={C\bibinitperiod}}}%
+        {{hash=e976f06eb2ac1a08f2ee7d8e32e8249b}{%
+           family={Oppong},
+           familyi={O\bibinitperiod},
+           given={Olivia},
+           giveni={O\bibinitperiod}}}%
+      }
+      \strng{namehash}{63526bd75efe584d78ec607644698ec7}
+      \strng{fullhash}{63526bd75efe584d78ec607644698ec7}
+      \strng{fullhashraw}{63526bd75efe584d78ec607644698ec7}
+      \strng{bibnamehash}{63526bd75efe584d78ec607644698ec7}
+      \strng{authorbibnamehash}{63526bd75efe584d78ec607644698ec7}
+      \strng{authornamehash}{63526bd75efe584d78ec607644698ec7}
+      \strng{authorfullhash}{63526bd75efe584d78ec607644698ec7}
+      \strng{authorfullhashraw}{63526bd75efe584d78ec607644698ec7}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{09666923}
+      \field{journaltitle}{Journal of Transport Geography}
+      \field{langid}{english}
+      \field{month}{7}
+      \field{shortjournal}{Journal of Transport Geography}
+      \field{title}{Measuring Vulnerability of Road Network Considering the Extent of Serviceability of Critical Road Links in Urban Areas}
+      \field{urlday}{1}
+      \field{urlmonth}{6}
+      \field{urlyear}{2025}
+      \field{volume}{39}
+      \field{year}{2014}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{145\bibrangedash 155}
+      \range{pages}{11}
+      \verb{doi}
+      \verb 10.1016/j.jtrangeo.2014.06.025
+      \endverb
+      \verb{urlraw}
+      \verb https://linkinghub.elsevier.com/retrieve/pii/S0966692314001392
+      \endverb
+      \verb{url}
+      \verb https://linkinghub.elsevier.com/retrieve/pii/S0966692314001392
+      \endverb
+      \keyw{para-ler}
+    \endentry
+    \entry{barabasiNetworkScience2016}{book}{}{}
+      \name{author}{2}{}{%
+        {{hash=15bacd7ddfc866c5dd96976d4b0244d5}{%
+           family={Barabási},
+           familyi={B\bibinitperiod},
+           given={Albert-László},
+           giveni={A\bibinithyphendelim L\bibinitperiod}}}%
+        {{hash=5996b175b9fa8551c3fa09da65426167}{%
+           family={Pósfai},
+           familyi={P\bibinitperiod},
+           given={Márton},
+           giveni={M\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Cambridge, United Kingdom}%
+      }
+      \list{publisher}{1}{%
+        {Cambridge University Press}%
+      }
+      \strng{namehash}{3c0a20b3e913df9584530b6efb70d6c7}
+      \strng{fullhash}{3c0a20b3e913df9584530b6efb70d6c7}
+      \strng{fullhashraw}{3c0a20b3e913df9584530b6efb70d6c7}
+      \strng{bibnamehash}{3c0a20b3e913df9584530b6efb70d6c7}
+      \strng{authorbibnamehash}{3c0a20b3e913df9584530b6efb70d6c7}
+      \strng{authornamehash}{3c0a20b3e913df9584530b6efb70d6c7}
+      \strng{authorfullhash}{3c0a20b3e913df9584530b6efb70d6c7}
+      \strng{authorfullhashraw}{3c0a20b3e913df9584530b6efb70d6c7}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{"Networks are everywhere, from the Internet, to social networks, and the genetic networks that determine our biological existence. Illustrated throughout in full colour, this pioneering textbook, spanning a wide range of topics from physics to computer science, engineering, economics and the social sciences, introduces network science to an interdisciplinary audience. From the origins of the six degrees of separation to explaining why networks are robust to random failures, the author explores how viruses like Ebola and H1N1 spread, and why it is that our friends have more friends than we do. Using numerous real-world examples, this innovatively designed text includes clear delineation between undergraduate and graduate level material"--Page [4] of cover}
+      \field{isbn}{978-1-107-07626-6}
+      \field{pagetotal}{456}
+      \field{title}{Network Science}
+      \field{year}{2016}
+      \field{dateera}{ce}
+      \keyw{Computer networks,Information networks}
+    \endentry
+    \entry{boeingModelingAnalyzingUrban2025}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=6a97e7860ba89ae913db592b29249440}{%
+           family={Boeing},
+           familyi={B\bibinitperiod},
+           given={Geoff},
+           giveni={G\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {arXiv}%
+      }
+      \strng{namehash}{6a97e7860ba89ae913db592b29249440}
+      \strng{fullhash}{6a97e7860ba89ae913db592b29249440}
+      \strng{fullhashraw}{6a97e7860ba89ae913db592b29249440}
+      \strng{bibnamehash}{6a97e7860ba89ae913db592b29249440}
+      \strng{authorbibnamehash}{6a97e7860ba89ae913db592b29249440}
+      \strng{authornamehash}{6a97e7860ba89ae913db592b29249440}
+      \strng{authorfullhash}{6a97e7860ba89ae913db592b29249440}
+      \strng{authorfullhashraw}{6a97e7860ba89ae913db592b29249440}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{OSMnx is a Python package for downloading, modeling, analyzing, and visualizing urban networks and any other geospatial features from OpenStreetMap data. A large and growing body of literature uses it to conduct scientific studies across the disciplines of geography, urban planning, transport engineering, computer science, and others. The OSMnx project has recently developed and implemented many new features, modeling capabilities, and analytical methods. The package now encompasses substantially more functionality than was previously documented in the literature. This article introduces OSMnx's modern capabilities, usage, and design -- in addition to the scientific theory and logic underlying them. It shares lessons learned in geospatial software development and reflects on open science's implications for urban modeling and analysis.}
+      \field{title}{Modeling and {{Analyzing Urban Networks}} and {{Amenities}} with {{OSMnx}}}
+      \field{urlday}{12}
+      \field{urlmonth}{5}
+      \field{urlyear}{2025}
+      \field{version}{1}
+      \field{year}{2025}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.48550/ARXIV.2505.00736
+      \endverb
+      \verb{file}
+      \verb /Users/pabsantos/Zotero/storage/3UYZWSMC/Boeing - 2025 - Modeling and Analyzing Urban Networks and Amenitie.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2505.00736
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2505.00736
+      \endverb
+      \keyw{Adaptation and Self-Organizing Systems (nlin.AO),Applied Physics (physics.app-ph),Computation (stat.CO),FOS: Computer and information sciences,FOS: Electrical engineering electronic engineering information engineering,FOS: Physical sciences,Mathematical Software (cs.MS),Physics and Society (physics.soc-ph),Systems and Control (eess.SY)}
+    \endentry
+    \entry{costaCharacterizationComplexNetworks2007}{article}{}{}
+      \name{author}{4}{}{%
+        {{hash=7c8fab62975ddea0fce3542ae2a02b9a}{%
+           family={Costa},
+           familyi={C\bibinitperiod},
+           given={L.\bibnamedelimi Da\bibnamedelima F.},
+           giveni={L\bibinitperiod\bibinitdelim D\bibinitperiod\bibinitdelim F\bibinitperiod}}}%
+        {{hash=027fd5e894c68ee7877303de8a0ec977}{%
+           family={Rodrigues},
+           familyi={R\bibinitperiod},
+           given={F.\bibnamedelimi A.},
+           giveni={F\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=47badf26ae3ae453d02064c18a3bcf72}{%
+           family={Travieso},
+           familyi={T\bibinitperiod},
+           given={G.},
+           giveni={G\bibinitperiod}}}%
+        {{hash=61cdaa4a25aefc897d919cdf3fbfcd9d}{%
+           family={Villas\bibnamedelima Boas},
+           familyi={V\bibinitperiod\bibinitdelim B\bibinitperiod},
+           given={P.\bibnamedelimi R.},
+           giveni={P\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+      }
+      \strng{namehash}{de6fbf5bb3d48eb1e046f02d6b75d3cc}
+      \strng{fullhash}{de6fbf5bb3d48eb1e046f02d6b75d3cc}
+      \strng{fullhashraw}{de6fbf5bb3d48eb1e046f02d6b75d3cc}
+      \strng{bibnamehash}{de6fbf5bb3d48eb1e046f02d6b75d3cc}
+      \strng{authorbibnamehash}{de6fbf5bb3d48eb1e046f02d6b75d3cc}
+      \strng{authornamehash}{de6fbf5bb3d48eb1e046f02d6b75d3cc}
+      \strng{authorfullhash}{de6fbf5bb3d48eb1e046f02d6b75d3cc}
+      \strng{authorfullhashraw}{de6fbf5bb3d48eb1e046f02d6b75d3cc}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{issn}{0001-8732, 1460-6976}
+      \field{journaltitle}{Advances in Physics}
+      \field{langid}{english}
+      \field{month}{1}
+      \field{number}{1}
+      \field{shortjournal}{Advances in Physics}
+      \field{shorttitle}{Characterization of Complex Networks}
+      \field{title}{Characterization of Complex Networks: {{A}} Survey of Measurements}
+      \field{urlday}{14}
+      \field{urlmonth}{8}
+      \field{urlyear}{2025}
+      \field{volume}{56}
+      \field{year}{2007}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{167\bibrangedash 242}
+      \range{pages}{76}
+      \verb{doi}
+      \verb 10.1080/00018730601170527
+      \endverb
+      \verb{urlraw}
+      \verb http://www.tandfonline.com/doi/abs/10.1080/00018730601170527
+      \endverb
+      \verb{url}
+      \verb http://www.tandfonline.com/doi/abs/10.1080/00018730601170527
+      \endverb
+    \endentry
+    \entry{morelliMeasuringUrbanRoad2021}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=6bd88d0b87cbf02c850c4ac02b4968f6}{%
+           family={Morelli},
+           familyi={M\bibinitperiod},
+           given={André\bibnamedelima Borgato},
+           giveni={A\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+        {{hash=b4c3992e4bef6fcaa1b1b2c3aeaa5e29}{%
+           family={Cunha},
+           familyi={C\bibinitperiod},
+           given={André\bibnamedelima Luiz},
+           giveni={A\bibinitperiod\bibinitdelim L\bibinitperiod}}}%
+      }
+      \strng{namehash}{f2e623f54fc6f33bfd87dcbd8e28f30c}
+      \strng{fullhash}{f2e623f54fc6f33bfd87dcbd8e28f30c}
+      \strng{fullhashraw}{f2e623f54fc6f33bfd87dcbd8e28f30c}
+      \strng{bibnamehash}{f2e623f54fc6f33bfd87dcbd8e28f30c}
+      \strng{authorbibnamehash}{f2e623f54fc6f33bfd87dcbd8e28f30c}
+      \strng{authornamehash}{f2e623f54fc6f33bfd87dcbd8e28f30c}
+      \strng{authorfullhash}{f2e623f54fc6f33bfd87dcbd8e28f30c}
+      \strng{authorfullhashraw}{f2e623f54fc6f33bfd87dcbd8e28f30c}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{issn}{13619209}
+      \field{journaltitle}{Transportation Research Part D: Transport and Environment}
+      \field{langid}{english}
+      \field{month}{4}
+      \field{shortjournal}{Transportation Research Part D: Transport and Environment}
+      \field{shorttitle}{Measuring Urban Road Network Vulnerability to Extreme Events}
+      \field{title}{Measuring Urban Road Network Vulnerability to Extreme Events: {{An}} Application for Urban Floods}
+      \field{urlday}{9}
+      \field{urlmonth}{11}
+      \field{urlyear}{2025}
+      \field{volume}{93}
+      \field{year}{2021}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{102770}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1016/j.trd.2021.102770
+      \endverb
+      \verb{file}
+      \verb /Users/pabsantos/Zotero/storage/D5BWE7JZ/Morelli and Cunha - 2021 - Measuring urban road network vulnerability to extreme events An application for urban floods.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://linkinghub.elsevier.com/retrieve/pii/S1361920921000742
+      \endverb
+      \verb{url}
+      \verb https://linkinghub.elsevier.com/retrieve/pii/S1361920921000742
+      \endverb
+    \endentry
+    \entry{Newman2010}{book}{}{}
+      \name{author}{1}{}{%
+        {{hash=214f45e2823b5430ca6f11c0fb3b6552}{%
+           family={Newman},
+           familyi={N\bibinitperiod},
+           given={Mark\bibnamedelimb E.\bibnamedelimi J.},
+           giveni={M\bibinitperiod\bibinitdelim E\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Oxford; New York}%
+      }
+      \list{publisher}{1}{%
+        {Oxford University Press}%
+      }
+      \strng{namehash}{214f45e2823b5430ca6f11c0fb3b6552}
+      \strng{fullhash}{214f45e2823b5430ca6f11c0fb3b6552}
+      \strng{fullhashraw}{214f45e2823b5430ca6f11c0fb3b6552}
+      \strng{bibnamehash}{214f45e2823b5430ca6f11c0fb3b6552}
+      \strng{authorbibnamehash}{214f45e2823b5430ca6f11c0fb3b6552}
+      \strng{authornamehash}{214f45e2823b5430ca6f11c0fb3b6552}
+      \strng{authorfullhash}{214f45e2823b5430ca6f11c0fb3b6552}
+      \strng{authorfullhashraw}{214f45e2823b5430ca6f11c0fb3b6552}
+      \field{sortinit}{N}
+      \field{sortinithash}{22369a73d5f88983a108b63f07f37084}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{978-0-19-920665-0}
+      \field{title}{Networks: An Introduction}
+      \field{year}{2010}
+      \field{pages}{720}
+      \range{pages}{1}
+    \endentry
+    \entry{santosVulnerabilityAnalysisComplex2023}{article}{}{}
+      \name{author}{10}{}{%
+        {{hash=95e836678b7170875cf6eed8a3674d7e}{%
+           family={Santos},
+           familyi={S\bibinitperiod},
+           given={Leonardo\bibnamedelimb B.\bibnamedelimi L.},
+           giveni={L\bibinitperiod\bibinitdelim B\bibinitperiod\bibinitdelim L\bibinitperiod}}}%
+        {{hash=fa3ed6732d23afec4c13ab0ac363b540}{%
+           family={Soares},
+           familyi={S\bibinitperiod},
+           given={Giovanni\bibnamedelima G.},
+           giveni={G\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
+        {{hash=05b6e03a69b81bb7ef421ba54cdb2648}{%
+           family={Garg},
+           familyi={G\bibinitperiod},
+           given={Tanishq},
+           giveni={T\bibinitperiod}}}%
+        {{hash=c5bf58dfaf2d33767d25856edeab4507}{%
+           family={Jorge},
+           familyi={J\bibinitperiod},
+           given={Aurelienne\bibnamedelimb A.\bibnamedelimi S.},
+           giveni={A\bibinitperiod\bibinitdelim A\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=7c97cb7b52d823a32efee51d6950f3ce}{%
+           family={Londe},
+           familyi={L\bibinitperiod},
+           given={Luciana\bibnamedelima R.},
+           giveni={L\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+        {{hash=e06c400c7970cdf136a4adf6e3562b81}{%
+           family={Reani},
+           familyi={R\bibinitperiod},
+           given={Regina\bibnamedelima T.},
+           giveni={R\bibinitperiod\bibinitdelim T\bibinitperiod}}}%
+        {{hash=f41ca4c4579b23bbf8697fb2ee811fd4}{%
+           family={Bacelar},
+           familyi={B\bibinitperiod},
+           given={Roberta\bibnamedelima B.},
+           giveni={R\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+        {{hash=acbfa975a60a632d45df9ef4d648d28d}{%
+           family={Oliveira},
+           familyi={O\bibinitperiod},
+           given={Carlos\bibnamedelimb E.\bibnamedelimi S.},
+           giveni={C\bibinitperiod\bibinitdelim E\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=04867f45114953e3db7f0c33944a3ff0}{%
+           family={Freitas},
+           familyi={F\bibinitperiod},
+           given={Vander\bibnamedelimb L.\bibnamedelimi S.},
+           giveni={V\bibinitperiod\bibinitdelim L\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=bf69a889cfef60f5861ceea597066f65}{%
+           family={Sokolov},
+           familyi={S\bibinitperiod},
+           given={Igor\bibnamedelima M.},
+           giveni={I\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+      }
+      \strng{namehash}{0517b4e661ca7eab0643f116b43cc023}
+      \strng{fullhash}{0517b4e661ca7eab0643f116b43cc023}
+      \strng{fullhashraw}{0517b4e661ca7eab0643f116b43cc023}
+      \strng{bibnamehash}{0517b4e661ca7eab0643f116b43cc023}
+      \strng{authorbibnamehash}{0517b4e661ca7eab0643f116b43cc023}
+      \strng{authornamehash}{0517b4e661ca7eab0643f116b43cc023}
+      \strng{authorfullhash}{0517b4e661ca7eab0643f116b43cc023}
+      \strng{authorfullhashraw}{0517b4e661ca7eab0643f116b43cc023}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{The measurement and mapping of transportation network vulnerability to natural hazards constitute subjects of global interest for a sustainable development agenda and as means of adaptation to climate change. During a flood, some elements of a transportation network can be affected, causing the loss of lives. Furthermore, impacts include damage to vehicles, streets/roads, and other logistics services - sometimes with severe economic consequences. The Network Science approach may offer a valuable perspective considering one type of vulnerability related to network-type critical infrastructures: the topological vulnerability. The topological vulnerability index associated with an element is defined as reducing the network’s average efficiency due to removing the set of edges related to that element. In this paper, we present the results of a systematic literature overview and a case study applying the topological vulnerability index for the highways in Santa Catarina (Brazil). We produce a map considering that index and areas susceptible to urban floods and landslides. Risk knowledge, combining hazard and vulnerability, is the first pillar of an Early Warning System and represents an important tool for stakeholders of the transportation sector in a disaster risk reduction agenda.}
+      \field{day}{24}
+      \field{issn}{2296-424X}
+      \field{journaltitle}{Frontiers in Physics}
+      \field{month}{3}
+      \field{shortjournal}{Front. Phys.}
+      \field{title}{Vulnerability Analysis in Complex Networks under a Flood Risk Reduction Point of View}
+      \field{urlday}{1}
+      \field{urlmonth}{6}
+      \field{urlyear}{2025}
+      \field{volume}{11}
+      \field{year}{2023}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{1064122}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.3389/fphy.2023.1064122
+      \endverb
+      \verb{file}
+      \verb /Users/pabsantos/Zotero/storage/39CHZMRT/Santos et al. - 2023 - Vulnerability analysis in complex networks under a.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://www.frontiersin.org/articles/10.3389/fphy.2023.1064122/full
+      \endverb
+      \verb{url}
+      \verb https://www.frontiersin.org/articles/10.3389/fphy.2023.1064122/full
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

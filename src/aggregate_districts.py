@@ -5,6 +5,8 @@ import geopandas as gpd
 import pandas as pd
 import shapely
 
+PROJECT_ROOT = Path(__file__).parent.parent
+
 DISTRICT_TO_SUBPREFEITURA = {
     "Aricanduva": "Aricanduva/Formosa/Carrão",
     "Carrão": "Aricanduva/Formosa/Carrão",
@@ -329,7 +331,7 @@ def main():
     """Aggregate network parameters by zone, district, and subprefeitura."""
     setup_logging()
 
-    output_dir = Path("data/output")
+    output_dir = PROJECT_ROOT / "data/output"
     nodes, edges, zones = load_data(output_dir)
 
     nodes_joined = assign_nodes_to_zones(nodes, zones)

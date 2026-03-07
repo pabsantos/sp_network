@@ -17,24 +17,24 @@ uv sync
 
 **Run the main script:**
 ```bash
-uv run python main.py
+uv run python src/main.py
 ```
 
 **Run aggregation (after main.py):**
 ```bash
-uv run python aggregate_districts.py
+uv run python src/aggregate_districts.py
 ```
 
 **Run population aggregation (after aggregate_districts.py):**
 ```bash
-uv run python aggregate_population.py
+uv run python src/aggregate_population.py
 ```
 
 ## Project Architecture
 
 ### Data Flow
 
-The main pipeline in `main.py` follows this sequence:
+The main pipeline in `src/main.py` follows this sequence:
 
 1. **Load spatial data**: OD zones shapefile (`Zonas_2023.shp`)
 2. **Municipality filtering**: Filters zones within São Paulo municipality (NumeroMuni == 36)
@@ -43,7 +43,7 @@ The main pipeline in `main.py` follows this sequence:
 5. **Parameter calculation**: Computes node and edge parameters using NetworKit
 6. **Output generation**: Exports results as GeoPackage, GraphML, and text files
 
-The aggregation pipeline in `aggregate_districts.py` follows this sequence:
+The aggregation pipeline in `src/aggregate_districts.py` follows this sequence:
 
 1. **Load outputs**: Reads nodes.gpkg, edges.gpkg, and od_zones_sp.gpkg from `data/output/`
 2. **Spatial join**: Assigns nodes and edges to OD zones via spatial join
@@ -52,7 +52,7 @@ The aggregation pipeline in `aggregate_districts.py` follows this sequence:
 5. **Subprefeitura aggregation**: Maps districts to subprefeituras (hardcoded mapping), dissolves polygons, computes summary statistics
 6. **Export**: Saves zone_summary.gpkg, district_summary.gpkg, and subprefeitura_summary.gpkg
 
-The population pipeline in `aggregate_population.py` follows this sequence:
+The population pipeline in `src/aggregate_population.py` follows this sequence:
 
 1. **Load census data**: Reads IBGE 2022 Census GeoPackage (`data/raw/censo/SP_setores_CD2022.gpkg`)
 2. **Municipality filtering**: Filters census tracts for São Paulo (CD_MUN == "3550308")
@@ -73,7 +73,7 @@ The results notebook `index.ipynb` visualizes outputs with choropleths and summa
 - `calculate_global_parameters()`: Compute network-wide statistics
 - `setup_logging()`: Configure logging with timestamp format
 
-**`aggregate_districts.py`:**
+**`src/aggregate_districts.py`:**
 
 - `load_data()`: Load nodes, edges, and OD zones GeoPackage files
 - `assign_nodes_to_zones()`: Spatial join nodes to OD zones
@@ -84,7 +84,7 @@ The results notebook `index.ipynb` visualizes outputs with choropleths and summa
 - `build_district_geodataframe()`: Dissolve zones into district polygons and merge statistics
 - `build_subprefeitura_geodataframe()`: Dissolve districts into subprefeitura polygons and merge statistics
 
-**`aggregate_population.py`:**
+**`src/aggregate_population.py`:**
 
 - `load_census_data()`: Load IBGE census GeoPackage file
 - `filter_census_by_municipality()`: Filter census tracts by CD_MUN (São Paulo = "3550308")
@@ -94,6 +94,10 @@ The results notebook `index.ipynb` visualizes outputs with choropleths and summa
 
 ### Directory Structure
 
+- `src/`: Python scripts
+  - `src/main.py`: Main network analysis pipeline
+  - `src/aggregate_districts.py`: Spatial aggregation by zone, district, subprefeitura
+  - `src/aggregate_population.py`: Census population aggregation
 - `data/raw/od_zones/`: Origin-destination zone shapefiles (527 zones, 39 municipalities)
 - `data/raw/censo/`: IBGE 2022 Census tracts GeoPackage (SP_setores_CD2022.gpkg)
 - `data/output/`: Output directory for full production runs
@@ -125,7 +129,7 @@ The results notebook `index.ipynb` visualizes outputs with choropleths and summa
 - When dissolving zones, `GeometryCollection` results must be filtered to extract only polygon parts (using `shapely.ops.unary_union`)
 - OSMnx downloads are cached automatically to avoid repeated API calls
 - Graph uses `network_type="drive"` for road networks
-- `aggregate_districts.py` contains a hardcoded `DISTRICT_TO_SUBPREFEITURA` mapping (105 entries) for all São Paulo districts
+- `src/aggregate_districts.py` contains a hardcoded `DISTRICT_TO_SUBPREFEITURA` mapping (105 entries) for all São Paulo districts
 - The results notebook uses dark-themed choropleths with CartoDB DarkMatter basemap via contextily
 
 ## Performance Optimization

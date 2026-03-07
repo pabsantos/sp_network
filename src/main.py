@@ -12,10 +12,12 @@ import pandas as pd
 import pyproj
 from joblib import Parallel, delayed
 
+PROJECT_ROOT = Path(__file__).parent.parent
+
 
 def setup_logging():
     """Configure logging with INFO level, console output, and file output."""
-    log_dir = Path("log")
+    log_dir = PROJECT_ROOT / "log"
     log_dir.mkdir(exist_ok=True)
 
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -217,6 +219,54 @@ def _bfs_distances_for_source(
     return total_dist, count
 
 
+def _bfs_avg_distance_for_node(nk_graph: nk.Graph, source: int, n: int) -> float:
+    """Compute average shortest path length from source to all other reachable nodes.
+
+    Args:
+        nk_graph: NetworKit Graph.
+        source: Source node index.
+        n: Total number of nodes.
+
+    Returns:
+        Mean shortest path distance from source to all reachable nodes.
+    """
+    bfs = nk.distance.BFS(nk_graph, source)
+    bfs.run()
+    distances = np.array(bfs.getDistances())
+    distances[source] = np.inf
+    mask = (distances > 0) & (distances < 1e308)
+    return float(distances[mask].mean()) if mask.any() else 0.0
+
+
+def _compute_avg_shortest_path_per_node(graph: nx.MultiDiGraph) -> dict:
+    """Compute average shortest path length for each node using parallel BFS.
+
+    Args:
+        graph: NetworkX MultiDiGraph.
+
+    Returns:
+        Dictionary mapping node IDs to average shortest path length values.
+    """
+    node_list = list(graph.nodes())
+    node_to_idx = {node: idx for idx, node in enumerate(node_list)}
+
+    nk_graph = nk.Graph(len(node_list), directed=True)
+    for u, v in graph.edges():
+        u_idx, v_idx = node_to_idx[u], node_to_idx[v]
+        if not nk_graph.hasEdge(u_idx, v_idx):
+            nk_graph.addEdge(u_idx, v_idx)
+
+    n = nk_graph.numberOfNodes()
+    n_jobs = os.cpu_count()
+    logging.info(f"Computing l_i with {n_jobs} parallel workers for {n} nodes")
+
+    results = Parallel(n_jobs=n_jobs, prefer="threads")(
+        delayed(_bfs_avg_distance_for_node)(nk_graph, idx, n) for idx in range(n)
+    )
+
+    return {node: results[node_to_idx[node]] for node in node_list}
+
+
 def _compute_clustering_networkit(graph: nx.MultiDiGraph) -> dict:
     """Compute local clustering coefficient using NetworKit.
 
@@ -312,7 +362,7 @@ def calculate_node_parameters(graph: nx.MultiDiGraph) -> pd.DataFrame:
         graph: NetworkX MultiDiGraph.
 
     Returns:
-        DataFrame with node parameters (k_i, c_i, b_i, avg_l_i).
+        DataFrame with node parameters (k_i, c_i, b_i, l_i, avg_l_i).
     """
     logging.info("Calculating node parameters...")
 
@@ -327,6 +377,10 @@ def calculate_node_parameters(graph: nx.MultiDiGraph) -> pd.DataFrame:
     betweenness = _compute_betweenness_networkit(graph)
     logging.info("Betweenness computation completed")
 
+    logging.info("Computing average shortest path length per node using NetworKit...")
+    avg_shortest_path = _compute_avg_shortest_path_per_node(graph)
+    logging.info("Average shortest path length per node completed")
+
     logging.info("Computing average edge length for each node...")
     avg_edge_length = {}
     for node in graph.nodes():
@@ -340,6 +394,7 @@ def calculate_node_parameters(graph: nx.MultiDiGraph) -> pd.DataFrame:
             "k_i": [degree[n] for n in graph.nodes()],
             "c_i": [clustering[n] for n in graph.nodes()],
             "b_i": [betweenness[n] for n in graph.nodes()],
+            "l_i": [avg_shortest_path[n] for n in graph.nodes()],
             "avg_l_i": [avg_edge_length[n] for n in graph.nodes()],
         }
     )
@@ -596,6 +651,7 @@ def add_parameters_to_graph(
         graph.nodes[node]["k_i"] = int(row["k_i"])
         graph.nodes[node]["c_i"] = float(row["c_i"])
         graph.nodes[node]["b_i"] = float(row["b_i"])
+        graph.nodes[node]["l_i"] = float(row["l_i"])
         graph.nodes[node]["avg_l_i"] = float(row["avg_l_i"])
 
     for _, row in edge_data.iterrows():
@@ -760,7 +816,7 @@ def main():
     TEST_DISTRICTS = [80, 67]
     SP_MUNICIPALITY_ID = 36
 
-    PATH_OD_ZONES = "data/raw/od_zones/Zonas_2023.shp"
+    PATH_OD_ZONES = PROJECT_ROOT / "data/raw/od_zones/Zonas_2023.shp"
 
     od_zones = load_od_zones(PATH_OD_ZONES)
     od_zones_sp = filter_zones_by_municipality(od_zones, SP_MUNICIPALITY_ID)
@@ -780,7 +836,9 @@ def main():
     global_params = calculate_global_parameters(graph, node_params, edge_params)
     nodes_gdf, edges_gdf = graph_to_spatial_objects(graph)
 
-    output_dir = Path("data/test") if TEST_RUN else Path("data/output")
+    output_dir = (
+        PROJECT_ROOT / "data/test" if TEST_RUN else PROJECT_ROOT / "data/output"
+    )
     output_dir.mkdir(parents=True, exist_ok=True)
     logging.info(f"Saving results to {output_dir}/")
 

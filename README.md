@@ -35,7 +35,7 @@ uv sync
 Run the script:
 
 ```bash
-uv run python main.py
+uv run python src/main.py
 ```
 
 ### Aggregation
@@ -43,7 +43,7 @@ uv run python main.py
 After running `main.py`, aggregate network parameters by OD zone, district, and subprefeitura:
 
 ```bash
-uv run python aggregate_districts.py
+uv run python src/aggregate_districts.py
 ```
 
 This generates three summary files in `data/output/`:
@@ -58,7 +58,7 @@ Each file contains mean, median, and max values for `k_i`, `c_i`, `b_i`, and `e_
 After running `aggregate_districts.py`, aggregate census population data by OD zone and subprefeitura:
 
 ```bash
-uv run python aggregate_population.py
+uv run python src/aggregate_population.py
 ```
 
 This downloads IBGE 2022 Census data (setores censitários), filters for São Paulo municipality, creates centroids, and assigns them to OD zones and subprefeituras via spatial join. Population totals are added as a `populacao` column to:
@@ -77,7 +77,7 @@ The `index.ipynb` notebook visualizes the results with choropleths and summary t
 
 ### Test Mode
 
-Edit `main.py` to configure test mode:
+Edit `src/main.py` to configure test mode:
 
 ```python
 TEST_RUN = True  # Run test mode with limited districts
