@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.11.11)  7 MAR 2026 16:11
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.11.11)  12 MAR 2026 20:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -590,15 +590,15 @@ Package logreq Info: Writing requests to 'artigo.run.xml'.
 Here is how much of TeX's memory you used:
  13875 strings out of 475247
  258898 string characters out of 5766450
- 1180227 words of memory out of 5000000
+ 1181227 words of memory out of 5000000
  36580 multiletter control sequences out of 15000+600000
  576133 words of font info for 78 fonts, out of 8000000 for 9000
  38 hyphenation exceptions out of 8191
- 79i,10n,93p,1489b,1738s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 79i,10n,93p,1497b,1738s stack positions out of 10000i,1000n,20000p,200000b,200000s
  </Users/pabsantos/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1000.600pk> </Users/pabsantos/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/eccc1000.600pk> </Users/pabsantos/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecti1000.600pk> </Users/pabsantos/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk> </Users/pabsantos/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0800.600pk> </Users/pabsantos/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0600.600pk> </Users/pabsantos/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600pk> </Users/pabsantos/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx0900.600pk> </Users/pabsantos/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0900.600pk> </Users/pabsantos/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1000.600pk> </Users/pabsantos/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0700.600pk> </Users/pabsantos/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1200.600pk> </Users/pabsantos/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1728.600pk> </Users/pabsantos/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1000.600pk></Users/pabsantos/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></Users/pabsantos/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></Users/pabsantos/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></Users/pabsantos/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></Users/pabsantos/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></Users/pabsantos/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></Users/pabsantos/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></Users/pabsantos/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></Users/pabsantos/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></Users/pabsantos/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
-Output written on artigo.pdf (7 pages, 3247633 bytes).
+Output written on artigo.pdf (7 pages, 3247403 bytes).
 PDF statistics:
- 490 PDF objects out of 1000 (max. 8388607)
+ 489 PDF objects out of 1000 (max. 8388607)
  105 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
