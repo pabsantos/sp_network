@@ -462,6 +462,37 @@
       \verb https://www.frontiersin.org/articles/10.3389/fphy.2023.1064122/full
       \endverb
     \endentry
+    \entry{santosSpNetwork2026}{software}{}{}
+      \name{author}{1}{}{%
+        {{hash=ef9b85ab81f3673a6c0325946d6c4419}{%
+           family={Santos},
+           familyi={S\bibinitperiod},
+           given={Pedro\bibnamedelimb Augusto\bibnamedelimb Borges\bibnamedelima dos},
+           giveni={P\bibinitperiod\bibinitdelim A\bibinitperiod\bibinitdelim B\bibinitperiod\bibinitdelim d\bibinitperiod}}}%
+      }
+      \strng{namehash}{ef9b85ab81f3673a6c0325946d6c4419}
+      \strng{fullhash}{ef9b85ab81f3673a6c0325946d6c4419}
+      \strng{fullhashraw}{ef9b85ab81f3673a6c0325946d6c4419}
+      \strng{bibnamehash}{ef9b85ab81f3673a6c0325946d6c4419}
+      \strng{authorbibnamehash}{ef9b85ab81f3673a6c0325946d6c4419}
+      \strng{authornamehash}{ef9b85ab81f3673a6c0325946d6c4419}
+      \strng{authorfullhash}{ef9b85ab81f3673a6c0325946d6c4419}
+      \strng{authorfullhashraw}{ef9b85ab81f3673a6c0325946d6c4419}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{sp\_network}
+      \field{version}{0.3.1}
+      \field{year}{2026}
+      \field{dateera}{ce}
+      \verb{urlraw}
+      \verb https://github.com/pabsantos/sp_network
+      \endverb
+      \verb{url}
+      \verb https://github.com/pabsantos/sp_network
+      \endverb
+    \endentry
   \enddatalist
 \endrefsection
 \endinput
