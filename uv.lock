@@ -1011,6 +1011,19 @@ wheels = [
 ]
 
 [[package]]
+name = "nx-parallel"
+version = "0.4"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "joblib" },
+    { name = "networkx" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/e3/4c/94572ce424e0d4c87a7e388ca103fe61bb581df23ab813fea002a2afd11a/nx_parallel-0.4.tar.gz", hash = "sha256:35d4d9d0d3c412ed9062cf45d555f707e801d73c7459a32d404c4566488eaee0", size = 28170, upload-time = "2025-12-23T13:55:28.224Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/7b/47/ff88f64767bc80299c921f750afd72a7cbe970d56d2815dad0e92abef601/nx_parallel-0.4-py3-none-any.whl", hash = "sha256:c8bb242999ff3220651b2e8ac2cc3dedb23e1b530e57b762f12012f6cd290c39", size = 41221, upload-time = "2025-12-23T13:55:26.983Z" },
+]
+
+[[package]]
 name = "osmnx"
 version = "2.0.7"
 source = { registry = "https://pypi.org/simple" }
@@ -1737,6 +1750,7 @@ dependencies = [
     { name = "networkit" },
     { name = "networkx" },
     { name = "numpy" },
+    { name = "nx-parallel" },
     { name = "osmnx" },
     { name = "pandas" },
 ]
@@ -1753,6 +1767,7 @@ requires-dist = [
     { name = "networkit", specifier = ">=11.2.1" },
     { name = "networkx", specifier = ">=3.6.1" },
     { name = "numpy", specifier = ">=2.4.2" },
+    { name = "nx-parallel", specifier = ">=0.4" },
     { name = "osmnx", specifier = ">=2.0.7" },
     { name = "pandas", specifier = ">=3.0.0" },
 ]

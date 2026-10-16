@@ -16,3 +16,7 @@ log/*
 data/output/*
 .claude/
 CLAUDE.md
+paper/
+log/
+cache/
+graphify-out/
