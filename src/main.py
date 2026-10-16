@@ -267,8 +267,12 @@ def _compute_avg_shortest_path_per_node(graph: nx.MultiDiGraph) -> dict:
     return {node: results[node_to_idx[node]] for node in node_list}
 
 
-def _compute_clustering_networkit(graph: nx.MultiDiGraph) -> dict:
-    """Compute local clustering coefficient using NetworKit.
+def _compute_clustering_networkx(graph: nx.MultiDiGraph) -> dict:
+    """Compute local directed clustering coefficient using NetworkX.
+
+    The MultiDiGraph is collapsed into a DiGraph (parallel edges merged,
+    self-loops removed) and ``nx.clustering`` is dispatched to the
+    nx-parallel backend.
 
     Args:
         graph: NetworkX MultiDiGraph.
@@ -276,22 +280,11 @@ def _compute_clustering_networkit(graph: nx.MultiDiGraph) -> dict:
     Returns:
         Dictionary mapping node IDs to clustering coefficient values.
     """
-    node_list = list(graph.nodes())
-    node_to_idx = {node: idx for idx, node in enumerate(node_list)}
+    digraph = nx.DiGraph(graph)
+    digraph.remove_edges_from(list(nx.selfloop_edges(digraph)))
 
-    nk_graph = nk.Graph(len(node_list), directed=False)
-    for u, v in graph.edges():
-        if u == v:
-            continue
-        u_idx, v_idx = node_to_idx[u], node_to_idx[v]
-        if not nk_graph.hasEdge(u_idx, v_idx):
-            nk_graph.addEdge(u_idx, v_idx)
-
-    lcc = nk.centrality.LocalClusteringCoefficient(nk_graph)
-    lcc.run()
-    scores = lcc.scores()
-
-    return {node: scores[node_to_idx[node]] for node in node_list}
+    with nx.config.backends.parallel(n_jobs=os.cpu_count()):
+        return nx.clustering(digraph, backend="parallel")
 
 
 def _compute_betweenness_networkit(graph: nx.MultiDiGraph) -> dict:
@@ -369,8 +362,8 @@ def calculate_node_parameters(graph: nx.MultiDiGraph) -> pd.DataFrame:
     logging.info("Computing degree for each node...")
     degree = dict(graph.degree())
 
-    logging.info("Computing clustering coefficient using NetworKit...")
-    clustering = _compute_clustering_networkit(graph)
+    logging.info("Computing clustering coefficient using NetworkX (parallel)...")
+    clustering = _compute_clustering_networkx(graph)
     logging.info("Clustering computation completed")
 
     logging.info("Computing betweenness centrality using NetworKit...")
