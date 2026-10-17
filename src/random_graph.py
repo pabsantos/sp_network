@@ -90,17 +90,15 @@ def describe_topology(graph: nx.MultiDiGraph) -> dict:
 def compute_metrics(graph: nx.MultiDiGraph) -> dict:
     """Compute the average clustering coefficient and shortest path length.
 
-    ``avg_l_all`` is the mean of the per-node averages over every node, which
-    matches the ``<l>`` of the comparison table in ``table.py``. It is also
-    reported over only the nodes that reach at least one other node, because
-    in a random directed graph many nodes have out-degree zero and therefore
-    an l_i of 0, which deflates the unfiltered mean.
+    ``avg_l`` is the mean of the per-node averages over every node, including
+    the nodes with an l_i of 0 (those that reach nothing), which matches the
+    ``nodes["l_i"].mean()`` used as ``<l>`` in ``table.py``.
 
     Args:
         graph: NetworkX MultiDiGraph.
 
     Returns:
-        Dictionary with avg_c, avg_l_all, avg_l_reachable and n_zero_l.
+        Dictionary with avg_c, avg_l and n_zero_l.
     """
     logging.info("Computing clustering coefficient using NetworkX (parallel)...")
     clustering = np.array(list(_compute_clustering_networkx(graph).values()))
@@ -112,12 +110,9 @@ def compute_metrics(graph: nx.MultiDiGraph) -> dict:
     )
     logging.info("Average shortest path length per node completed")
 
-    reachable = avg_shortest_path[avg_shortest_path > 0]
-
     return {
         "avg_c": float(clustering.mean()),
-        "avg_l_all": float(avg_shortest_path.mean()),
-        "avg_l_reachable": float(reachable.mean()) if reachable.size else 0.0,
+        "avg_l": float(avg_shortest_path.mean()),
         "n_zero_l": int((avg_shortest_path == 0).sum()),
     }
 
@@ -140,23 +135,19 @@ def save_random_results(metrics: dict, topology: dict, output_path):
         "-" * 50,
         f"Number of nodes (N): {topology['N']}",
         f"Number of edges (L): {topology['L']}",
-        f"Average clustering coefficient (<c>): {metrics['avg_c']:.4f}",
-        f"Average shortest path length (<l>): {metrics['avg_l_all']:.4f}",
+        f"Average clustering coefficient (<c>): {metrics['avg_c']:.6f}",
+        f"Average shortest path length (<l>): {metrics['avg_l']:.4f}",
         "",
         "Graph Composition:",
         "-" * 50,
         f"Self-loops: {topology['self_loops']}",
         f"Parallel edges: {topology['parallel_edges']}",
-        "",
-        "Shortest Path Length Detail:",
-        "-" * 50,
-        f"Mean of l_i over all nodes (<l>): {metrics['avg_l_all']:.4f}",
-        f"Mean of l_i over reachable nodes: {metrics['avg_l_reachable']:.4f}",
         f"Nodes with l_i = 0 (reach nothing): {metrics['n_zero_l']}",
         "",
-        "Note: the graph is not strongly connected, so each l_i averages only",
-        "over the targets that node actually reaches. <l> is the mean over all",
-        "nodes, matching the <l> of the comparison table in table.py.",
+        "Note: <l> is the mean of l_i over all nodes, including the ones with",
+        "l_i = 0, matching nodes[\"l_i\"].mean() in table.py. The graph is not",
+        "strongly connected, so each l_i itself averages only over the targets",
+        "that node actually reaches.",
         "",
     ]
     output_path.write_text("\n".join(lines))
@@ -201,12 +192,9 @@ def main():
 
     logging.info(
         f"N = {topology['N']}, L = {topology['L']}, "
-        f"<c> = {metrics['avg_c']:.4f}, <l> = {metrics['avg_l_all']:.4f}"
+        f"<c> = {metrics['avg_c']:.6f}, <l> = {metrics['avg_l']:.4f}"
     )
-    logging.info(
-        f"<l> over reachable nodes only: {metrics['avg_l_reachable']:.4f} "
-        f"({metrics['n_zero_l']} nodes with l_i = 0)"
-    )
+    logging.info(f"Nodes with l_i = 0: {metrics['n_zero_l']}")
 
 
 if __name__ == "__main__":
